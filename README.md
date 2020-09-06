@@ -1,4 +1,37 @@
-# Tailwind CSS example
+# shell history
+
+npx create-next-app --example with-tailwindcss little-reddit-web --use-npm
+npm install -D stylelint stylelint-config-standard
+npm install --save-dev typescript @types/react @types/node
+npm install react-hook-form
+npm install @tailwindcss/ui
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Tailwind CSS example
 
 This is an example of using [Tailwind CSS](https://tailwindcss.com) in a Next.js project.
 
