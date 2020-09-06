@@ -1,9 +1,12 @@
-import Register from './register'
+import React, { ReactElement } from 'react';
+import Register from './register';
 
-export default function IndexPage() {
-  return (
-
-      <Register/>
-
-  )
+function IndexPage(): ReactElement {
+    return (
+        <>
+            <Register />
+        </>
+    );
 }
+
+export default IndexPage;

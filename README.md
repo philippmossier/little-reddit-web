@@ -1,10 +1,16 @@
+'https://github.com/vercel/next.js'
+'https://nextjs.org/docs'
 # shell history
 
 npx create-next-app --example with-tailwindcss little-reddit-web --use-npm
 npm install -D stylelint stylelint-config-standard
 npm install --save-dev typescript @types/react @types/node
 npm install react-hook-form
+
+**update tailwindcss to latest version:**
+npm install tailwindcss@^1.0 --save-dev
 npm install @tailwindcss/ui
+npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react prettier eslint-config-prettier eslint-plugin-prettier
 
 
 
