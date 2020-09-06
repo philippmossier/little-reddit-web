@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
-interface registerProps {}
+interface registerProps {
+    email?: string;
+    password?: string;
+    remember_me?: string;
+}
 
-const Register: React.FC<registerProps> = ({}) => {
+const Register: FC<registerProps> = ({}: registerProps): ReactElement => {
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => console.log(data);
 
