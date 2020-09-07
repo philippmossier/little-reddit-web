@@ -7,23 +7,23 @@ interface styleProps {
     description?: string;
 }
 
-export const Container: FC<styleProps> = ({ children }: styleProps): ReactElement => (
+const Container: FC<styleProps> = ({ children }: styleProps): ReactElement => (
     <div className={classnames('md:flex', 'p-4')}>{children}</div>
 );
 
-export const ImageWrapper: FC<styleProps> = ({ children }: styleProps) => (
+const ImageWrapper: FC<styleProps> = ({ children }: styleProps): ReactElement => (
     <div className={classnames('md:flex-shrink-0')}>{children}</div>
 );
 
-export const Image: FC<styleProps> = ({ url, description }: styleProps) => (
+const Image: FC<styleProps> = ({ url, description }: styleProps): ReactElement => (
     <img className={classnames('rounded-lg', 'md:w-56')} src={url} alt={description} />
 );
 
-export const ContentContainer: FC<styleProps> = ({ children }: styleProps) => (
+const ContentContainer: FC<styleProps> = ({ children }: styleProps): ReactElement => (
     <div className={classnames('mt-4', 'md:mt-0', 'md:ml-6')}>{children}</div>
 );
 
-export const Label: FC<styleProps> = ({ children }: styleProps) => (
+const Label: FC<styleProps> = ({ children }: styleProps): ReactElement => (
     <div
         className={classnames(
             'uppercase',
@@ -37,7 +37,7 @@ export const Label: FC<styleProps> = ({ children }: styleProps) => (
     </div>
 );
 
-export const TitleLink: FC<styleProps> = ({ url, children }: styleProps) => (
+const TitleLink: FC<styleProps> = ({ url, children }: styleProps): ReactElement => (
     <a
         href={url}
         className={classnames(
@@ -54,6 +54,8 @@ export const TitleLink: FC<styleProps> = ({ url, children }: styleProps) => (
     </a>
 );
 
-export const Description: FC<styleProps> = ({ children }: styleProps) => (
+const Description: FC<styleProps> = ({ children }: styleProps): ReactElement => (
     <p className={classnames('mt-2', 'text-gray-600')}>{children}</p>
 );
+
+export { Container, ImageWrapper, Image, ContentContainer, Label, TitleLink, Description };

@@ -1,15 +1,16 @@
-import React, { ReactElement } from 'react';
-import Card from '../components/CardClassic/card';
+import React, { ReactElement, FC } from 'react';
+import Register from './register';
+// import Card from '../components/CardClassic/card';
 // import Card from '../components/CardWithStyles/card';
 // import Card from '../components/CardWithElements/card';
 
-function IndexPage(): ReactElement {
+const IndexPage: FC = (): ReactElement => {
     return (
         <>
-            {/* <Register /> */}
-            <Card />
+            <Register />
+            {/* <Card /> */}
         </>
     );
-}
+};
 
 export default IndexPage;

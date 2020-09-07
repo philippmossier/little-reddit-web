@@ -1,9 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import * as styles from './styles';
 
-interface cardProps {}
-
-const Card: FC<cardProps> = ({}: cardProps): ReactElement => {
+const Card: FC = (): ReactElement => {
     return (
         <div className={styles.container}>
             <div className={styles.imageContainer}>

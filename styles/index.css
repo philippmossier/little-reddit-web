@@ -1,9 +1,13 @@
 @tailwind base;
 
+/* Dont overwrites existing classes */
 @layer base {
-  body {
+  /* body {
     @apply bg-gray-200;
-  }
+  } */
+  /* h2 {
+    @apply text-red-700;
+  } */
 }
 
 /* Write your own custom base styles here */

@@ -1,18 +1,14 @@
 import React, { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
+import * as styles from './register-styles';
 
-interface registerProps {
-    email?: string;
-    password?: string;
-    remember_me?: string;
-}
-
-const Register: FC<registerProps> = ({}): ReactElement => {
+const Register: FC = (): ReactElement => {
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => console.log(data);
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        //   <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 red-50">
+        <div className={styles.container}>
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <img
                     className="mx-auto h-12 w-auto "
@@ -23,7 +19,7 @@ const Register: FC<registerProps> = ({}): ReactElement => {
                     Sign in to your account
                 </h2>
                 <p className="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
-                    Or
+                    {`or `}
                     <a
                         href="#"
                         className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
