@@ -2,17 +2,17 @@ import React, { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import * as styles from './register-styles';
 
-interface formValues {
+type FormValues = {
    flat: string;
    nested: {
       object: { test: string };
       array: { test: boolean }[];
    };
-}
+};
 
 const Register: FC = (): ReactElement => {
-   const { register, handleSubmit } = useForm<formValues>();
-   const onSubmit = (data) => console.log(data);
+   const { register, handleSubmit } = useForm<FormValues>();
+   const onSubmit = (data: FormValues) => console.log(data);
    return (
       <div className={styles.container}>
          <div className={styles.headerContainer}>
