@@ -1,4 +1,8 @@
 export type TCustomClasses =
+    | 'focus:shadow-outline-blue'
+    | 'focus:shadow-outline-indigo'
+    | 'active:bg-indigo-700'
+    | 'transition'
     | 'bg-red-50'
     | 'bg-gray-50'
     | 'bg-teal-50'
