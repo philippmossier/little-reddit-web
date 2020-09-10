@@ -3,15 +3,12 @@ import { useForm } from 'react-hook-form';
 import * as styles from './register-styles';
 
 type FormValues = {
-   flat: string;
-   nested: {
-      object: { test: string };
-      array: { test: boolean }[];
-   };
+   email: string;
+   password: string;
 };
 
 const Register: FC = (): ReactElement => {
-   const { register, handleSubmit } = useForm<FormValues>();
+   const { register, handleSubmit, errors } = useForm<FormValues>();
    const onSubmit = (data: FormValues) => console.log(data);
    return (
       <div className={styles.container}>
@@ -30,7 +27,8 @@ const Register: FC = (): ReactElement => {
                      Email address
                   </label>
                   <div className={styles.emailInputContainer}>
-                     <input name="email" ref={register} className={styles.emailInputField} />
+                     <input name="email" ref={register({ required: true })} className={styles.emailInputField} />
+                     {errors.email && <div className="text-red-500 font-bold text-sm">Please enter a email adress</div>}
                   </div>
                </div>
                <div className="mt-6">
@@ -38,7 +36,8 @@ const Register: FC = (): ReactElement => {
                      Password
                   </label>
                   <div className={styles.passwordInputContainer}>
-                     <input name="password" ref={register} className={styles.passwordInputField} />
+                     <input name="password" ref={register({ required: true })} className={styles.passwordInputField} />
+                     {errors.password && <div className="text-red-500 font-bold text-sm">Please enter a password</div>}
                   </div>
                </div>
                <div className="mt-6">
