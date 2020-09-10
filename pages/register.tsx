@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
-import * as styles from './register-styles';
+import * as styles from '../page-styles/register-styles';
 
 type FormValues = {
    email: string;
