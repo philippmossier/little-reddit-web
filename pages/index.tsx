@@ -5,12 +5,12 @@ import Register from './register';
 // import Card from '../components/CardWithElements/card';
 
 const IndexPage: FC = (): ReactElement => {
-    return (
-        <>
-            <Register />
-            {/* <Card /> */}
-        </>
-    );
+   return (
+      <>
+         <Register />
+         {/* <Card /> */}
+      </>
+   );
 };
 
 export default IndexPage;
