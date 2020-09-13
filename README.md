@@ -1,5 +1,5 @@
 # DOCS
-
+Video 2h:45
 'https://github.com/vercel/next.js'
 'https://nextjs.org/docs'
 
@@ -7,15 +7,37 @@
 
 npx create-next-app --example with-tailwindcss little-reddit-web --use-npm
 npm install -D stylelint stylelint-config-standard
-npm install --save-dev typescript @types/react @types/node
+npm install -D typescript @types/react @types/node
 npm install react-hook-form
 
 **update tailwindcss to latest version:**
-npm install tailwindcss@^1.0 --save-dev
+npm install -D tailwindcss@^1.0
 npm install @tailwindcss/ui
 npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react prettier eslint-config-prettier eslint-plugin-prettier
+npm install tailwindcss-classnames (optional)
 
-## HOW TO USE classnames() 
+npm install urql graphql
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## HOW TO USE classnames()
+
 the tailwindcss-classnames package is the same as the original classnames pkg (node_modules/classnames/README.md) but with types onTop
 
 The `classNames` function takes any number of arguments which can be a string or object.
@@ -48,32 +70,9 @@ let buttonType = 'primary';
 classNames({ [`btn-${buttonType}`]: true });
 ```
 
-
-### Left border improvements for forms on invalid input:
+### Left border improvements for forms on invalid input
 
 border-width: 1px 1px 1px 10px; border-style: solid; border-color: rgb(191, 22, 80) rgb(191, 22, 80) rgb(191, 22, 80) rgb(236, 89, 144); border-image: initial
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Tailwind CSS example
 
