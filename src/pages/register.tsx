@@ -1,61 +1,34 @@
 import React, { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
-import { CombinedError, useMutation } from 'urql';
+import { useRegisterMutation } from '../generated/graphql';
 import * as styles from '../page-styles/styles';
+import { toErrorMap } from '../utils/toErrorMap';
 
 type FormValues = {
   username: string;
   password: string;
 };
 
-type ResponseObject = {
-  data?: {
-    register: {
-      errors?: [
-        {
-          field: string;
-          message: string;
-        },
-      ];
-      user?: {
-        id: number;
-        username: string;
-        updatedAt: string;
-        createdAt: string;
-      };
-    };
-  };
-  error?: CombinedError;
-};
-
-const REGISTER_MUT = `
-mutation Register($username: String !, $password: String! ) {
-  register (options: {username: $username, password: $password }){
-    errors{
-      field
-      message
-    } 
-    user {
-      id
-      username
-      createdAt
-      updatedAt
-    }
-  }
-}
-`;
-
 const Register: FC = (): ReactElement => {
-  const [, registerMut] = useMutation(REGISTER_MUT);
-  const { register, handleSubmit, errors, formState } = useForm<FormValues>();
+  const [, registerMut] = useRegisterMutation(); // mutation hook from '@graphql-codegen/typescript-urql'
+  const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();
   const { isSubmitting } = formState;
 
   const onSubmit = async (data: FormValues) => {
-    const result: ResponseObject = await registerMut(data);
-    if (!result) console.log('No response from registerMutation. Cant get access to ResponseObject, check connection');
-    if (result && !result.error && !result.data?.register.errors) console.log('Successfull registered:', result.data);
-    if (result.error) console.log('Error occured in onSubmit:', result.error);
-    if (result.data?.register.errors) console.log('register error', result.data.register.errors);
+    const response = await registerMut(data);
+    // if no connection
+    if (!response) console.log('Promise unresolved, check connection');
+    if (response.error) console.log('Error occured in onSubmit:', response.error);
+    // set error message on form inputField
+    if (response.data?.register.errors) {
+      console.log(toErrorMap(response.data.register.errors));
+      const errorObj = toErrorMap(response.data.register.errors);
+      if ('username' in errorObj) setError('username', { message: errorObj.username });
+      if ('password' in errorObj) setError('password', { message: errorObj.password });
+    }
+    // successfull registered
+    if (response && !response.error && !response.data?.register.errors && response.data)
+      console.log('Successfull registered:', response.data);
   };
 
   return (
@@ -77,7 +50,7 @@ const Register: FC = (): ReactElement => {
             </label>
             <div className={styles.usernameInputContainer}>
               <input name="username" ref={register({ required: true })} className={styles.usernameInputField} />
-              {errors.username && <div className="text-red-500 font-bold text-sm">Please enter a username adress</div>}
+              {errors.username && <div className="text-red-500 font-bold text-sm">{errors.username.message}</div>}
             </div>
           </div>
 
@@ -87,7 +60,7 @@ const Register: FC = (): ReactElement => {
             </label>
             <div className={styles.passwordInputContainer}>
               <input name="password" ref={register({ required: true })} className={styles.passwordInputField} />
-              {errors.password && <div className="text-red-500 font-bold text-sm">Please enter a password</div>}
+              {errors.password && <div className="text-red-500 font-bold text-sm">{errors.password.message}</div>}
             </div>
           </div>
 

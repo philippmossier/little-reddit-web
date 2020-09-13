@@ -17,17 +17,156 @@ npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
 npm install tailwindcss-classnames (optional)
 
 npm install urql graphql
+npm install -D @graphql-codegen/cli
+npx graphql-codegen init
+1: What type of application are you building? Application built with React
+2: Where is your schema?: (path or url) http://localhost:4000/graphql
+3: Where are your operations and fragments?: src/graphql/**/*.graphql
+3: Pick plugins: TypeScript (required by other typescript plugins), TypeScript Operations (operations and fragments), TypeScript React Apollo (typed componen
+ts and HOCs) SKIP apollo if using urql !
+4: Where to write the output: src/generated/graphql.tsx
+5: Do you want to generate an introspection file? No
+6: How to name the config file? codegen.yml
+7: What script in package.json should run the codegen? gen
+
+Info: If we want urql instead of apollo we can edit yaml file(optional):
+- For urql we need to edit codegen.yml and change `"typescript-react-apollo"` to `"typescript-urql"`
+- also remove `"@graphql-codegen/typescript-react-apollo": "1.17.8"` from package.json and use urql `npm install -D @graphql-codegen/typescript-urql` instead
+
+Info: For syntax highlighting graphql in .graphql files use `GraphQL for VSCode` vscode-extension
 
 
 
+### Version without @graphql-codegen/typescript-urql:
 
+tsx
+```
+import React, { FC, ReactElement } from 'react';
+import { useForm } from 'react-hook-form';
+import { CombinedError, useMutation } from 'urql';
+import * as styles from '../page-styles/styles';
+import { toErrorMap } from '../utils/toErrorMap';
 
+type FormValues = {
+  username: string;
+  password: string;
+};
 
+type ResponseObject = {
+  data?: {
+    register: {
+      errors?: [
+        {
+          field: string;
+          message: string;
+        },
+      ];
+      user?: {
+        id: number;
+        username: string;
+        updatedAt: string;
+        createdAt: string;
+      };
+    };
+  };
+  error?: CombinedError;
+};
 
+const REGISTER_MUT = `
+mutation Register($username: String !, $password: String! ) {
+  register (options: {username: $username, password: $password }){
+    errors{
+      field
+      message
+    } 
+    user {
+      id
+      username
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
 
+const Register: FC = (): ReactElement => {
+  const [, registerMut] = useMutation(REGISTER_MUT); // without code-generated customHook
+  const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();
+  const { isSubmitting } = formState;
 
+  const onSubmit = async (data: FormValues) => {
+    const response: ResponseObject = await registerMut(data);
 
+    // if no connection
+    if (!response) console.log('Promise unresolved, check connection');
+    if (response.error) console.log('Error occured in onSubmit:', response.error);
 
+    // set error message on form inputField
+    if (response.data?.register.errors) {
+      console.log(toErrorMap(response.data.register.errors));
+      const errorObj = toErrorMap(response.data.register.errors);
+      if ('username' in errorObj) setError('username', { message: errorObj.username });
+      if ('password' in errorObj) setError('password', { message: errorObj.password });
+    }
+
+    // successfull registered
+    if (response && !response.error && !response.data?.register.errors && response.data)
+      console.log('Successfull registered:', response.data);
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.headerContainer}>
+        <img
+          className={styles.headerLogo}
+          src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg"
+          alt="Workflow"
+        />
+        <h2 className={styles.headerTitle}>Sign in to your account</h2>
+      </div>
+
+      <div className={styles.formContainer}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <label htmlFor="username" className={styles.usernameLabel}>
+              Username
+            </label>
+            <div className={styles.usernameInputContainer}>
+              <input name="username" ref={register({ required: true })} className={styles.usernameInputField} />
+              {errors.username && <div className="text-red-500 font-bold text-sm">{errors.username.message}</div>}
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <label htmlFor="password" className={styles.passwordLabel}>
+              Password
+            </label>
+            <div className={styles.passwordInputContainer}>
+              <input name="password" ref={register({ required: true })} className={styles.passwordInputField} />
+              {errors.password && <div className="text-red-500 font-bold text-sm">{errors.password.message}</div>}
+            </div>
+          </div>
+
+          <div className="mt-6">
+            {isSubmitting ? (
+              <button type="submit" disabled={isSubmitting} className={styles.submitButton(isSubmitting)}>
+                Sign in
+              </button>
+            ) : (
+              <button type="submit" className={styles.submitButton(isSubmitting)}>
+                Sign in
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Register;
+
+```
 
 
 

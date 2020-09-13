@@ -1,4 +1,4 @@
-import classNames, { classnames, TTailwindString } from '../tailwindcss-classnames';
+import classNames, { classnames, TTailwindString } from '../../tailwindcss-classnames';
 
 export const container = classNames(
   'min-h-screen',

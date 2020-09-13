@@ -1,4 +1,4 @@
-import { classnames } from '../../tailwindcss-classnames';
+import { classnames } from '../../../tailwindcss-classnames';
 
 export const container = classnames('md:flex', 'p-4');
 
