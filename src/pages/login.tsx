@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import React, { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRegisterMutation } from '../generated/graphql';
+import { useLoginMutation } from '../generated/graphql';
 import * as styles from '../page-styles/styles';
 import { toErrorMap } from '../utils/toErrorMap';
 
@@ -10,25 +10,25 @@ type FormValues = {
   password: string;
 };
 
-const Register: FC<FormValues> = (): ReactElement => {
-  const [, registerMut] = useRegisterMutation(); // mutation hook from '@graphql-codegen/typescript-urql'
+const Login: FC<FormValues> = (): ReactElement => {
+  const [, loginMut] = useLoginMutation(); // mutation hook from '@graphql-codegen/typescript-urql'
   const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();
   const { isSubmitting } = formState;
   const router = useRouter();
 
   const onSubmit = async (data: FormValues) => {
-    const response = await registerMut(data);
+    const response = await loginMut({ options: data });
     // if no connection
     if (!response) console.log('Promise unresolved, check connection');
     if (response.error) console.log('Error occured in onSubmit:', response.error);
 
-    if (response.data?.register.errors) {
-      console.log(toErrorMap(response.data.register.errors));
-      const errorObj = toErrorMap(response.data.register.errors);
+    if (response.data?.login.errors) {
+      console.log(toErrorMap(response.data.login.errors));
+      const errorObj = toErrorMap(response.data.login.errors);
       if ('username' in errorObj) setError('username', { message: errorObj.username });
       if ('password' in errorObj) setError('password', { message: errorObj.password });
-    } else if (response.data?.register.user) {
-      console.log('Successfull registered:', response.data);
+    } else if (response.data?.login.user) {
+      console.log('Login succesfully as:', response.data.login.user);
       router.push('/');
     }
   };
@@ -83,4 +83,4 @@ const Register: FC<FormValues> = (): ReactElement => {
   );
 };
 
-export default Register;
+export default Login;

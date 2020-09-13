@@ -1,14 +1,12 @@
 import React, { ReactElement, FC } from 'react';
-import Register from './register';
-// import Card from '../components/CardClassic/card';
-// import Card from '../components/CardWithStyles/card';
-// import Card from '../components/CardWithElements/card';
+import Card from '../components/CardWithStyles/card';
+import NavBar from '../components/NavBar/NavBar';
 
 const IndexPage: FC = (): ReactElement => {
   return (
     <>
-      <Register />
-      {/* <Card /> */}
+      <NavBar />
+      <Card />
     </>
   );
 };
