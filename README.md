@@ -1,5 +1,5 @@
 # DOCS
-Video 2h:45
+Video 3h26
 'https://github.com/vercel/next.js'
 'https://nextjs.org/docs'
 
@@ -18,6 +18,7 @@ npm install tailwindcss-classnames (optional)
 
 npm install urql graphql
 npm install -D @graphql-codegen/cli
+
 npx graphql-codegen init
 1: What type of application are you building? Application built with React
 2: Where is your schema?: (path or url) http://localhost:4000/graphql
@@ -35,7 +36,7 @@ Info: If we want urql instead of apollo we can edit yaml file(optional):
 
 Info: For syntax highlighting graphql in .graphql files use `GraphQL for VSCode` vscode-extension
 
-
+npm install @urql/exchange-graphcache
 
 ### Version without @graphql-codegen/typescript-urql:
 
