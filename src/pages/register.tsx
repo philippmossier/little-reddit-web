@@ -1,8 +1,10 @@
+import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/dist/client/router';
 import React, { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRegisterMutation } from '../generated/graphql';
 import * as styles from '../page-styles/styles';
+import createUrqlClient from '../utils/createUrqlClient';
 import { toErrorMap } from '../utils/toErrorMap';
 
 type FormValues = {
@@ -83,4 +85,4 @@ const Register: FC<FormValues> = (): ReactElement => {
   );
 };
 
-export default Register;
+export default withUrqlClient(createUrqlClient)(Register);

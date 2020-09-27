@@ -1,8 +1,10 @@
+import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/dist/client/router';
 import React, { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoginMutation } from '../generated/graphql';
 import * as styles from '../page-styles/styles';
+import createUrqlClient from '../utils/createUrqlClient';
 import { toErrorMap } from '../utils/toErrorMap';
 
 type FormValues = {
@@ -83,4 +85,4 @@ const Login: FC<FormValues> = (): ReactElement => {
   );
 };
 
-export default Login;
+export default withUrqlClient(createUrqlClient, { ssr: false })(Login);

@@ -1,5 +1,5 @@
 # DOCS
-Video 3h26
+Video 4h13
 'https://github.com/vercel/next.js'
 'https://nextjs.org/docs'
 
@@ -37,6 +37,7 @@ Info: If we want urql instead of apollo we can edit yaml file(optional):
 Info: For syntax highlighting graphql in .graphql files use `GraphQL for VSCode` vscode-extension
 
 npm install @urql/exchange-graphcache
+npm install next-urql react-is isomorphic-unfetch
 
 ### Version without @graphql-codegen/typescript-urql:
 
