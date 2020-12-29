@@ -8,7 +8,7 @@ import createUrqlClient from '../utils/createUrqlClient';
 import { toErrorMap } from '../utils/toErrorMap';
 
 type FormValues = {
-  username: string;
+  usernameOrEmail: string;
   password: string;
 };
 
@@ -19,7 +19,7 @@ const Login: FC<FormValues> = (): ReactElement => {
   const router = useRouter();
 
   const onSubmit = async (data: FormValues) => {
-    const response = await loginMut({ options: data });
+    const response = await loginMut(data);
     // if no connection
     if (!response) console.log('Promise unresolved, check connection');
     if (response.error) console.log('Error occured in onSubmit:', response.error);
@@ -27,7 +27,7 @@ const Login: FC<FormValues> = (): ReactElement => {
     if (response.data?.login.errors) {
       console.log(toErrorMap(response.data.login.errors));
       const errorObj = toErrorMap(response.data.login.errors);
-      if ('username' in errorObj) setError('username', { message: errorObj.username });
+      if ('usernameOrEmail' in errorObj) setError('usernameOrEmail', { message: errorObj.usernameOrEmail });
       if ('password' in errorObj) setError('password', { message: errorObj.password });
     } else if (response.data?.login.user) {
       console.log('Login succesfully as:', response.data.login.user);
@@ -49,12 +49,14 @@ const Login: FC<FormValues> = (): ReactElement => {
       <div className={styles.formContainer}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="username" className={styles.usernameLabel}>
-              Username
+            <label htmlFor="usernameOrEmail" className={styles.usernameLabel}>
+              Username or Email
             </label>
             <div className={styles.usernameInputContainer}>
-              <input name="username" ref={register({ required: true })} className={styles.usernameInputField} />
-              {errors.username && <div className="text-red-500 font-bold text-sm">{errors.username.message}</div>}
+              <input name="usernameOrEmail" ref={register({ required: true })} className={styles.usernameInputField} />
+              {errors.usernameOrEmail && (
+                <div className="text-red-500 font-bold text-sm">{errors.usernameOrEmail.message}</div>
+              )}
             </div>
           </div>
 

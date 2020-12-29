@@ -9,6 +9,7 @@ import { toErrorMap } from '../utils/toErrorMap';
 
 type FormValues = {
   username: string;
+  email: string;
   password: string;
 };
 
@@ -19,7 +20,7 @@ const Register: FC<FormValues> = (): ReactElement => {
   const router = useRouter();
 
   const onSubmit = async (data: FormValues) => {
-    const response = await registerMut(data);
+    const response = await registerMut({ options: data });
     // if no connection
     if (!response) console.log('Promise unresolved, check connection');
     if (response.error) console.log('Error occured in onSubmit:', response.error);
@@ -28,6 +29,7 @@ const Register: FC<FormValues> = (): ReactElement => {
       console.log(toErrorMap(response.data.register.errors));
       const errorObj = toErrorMap(response.data.register.errors);
       if ('username' in errorObj) setError('username', { message: errorObj.username });
+      if ('email' in errorObj) setError('email', { message: errorObj.email });
       if ('password' in errorObj) setError('password', { message: errorObj.password });
     } else if (response.data?.register.user) {
       console.log('Successfull registered:', response.data);
@@ -43,7 +45,7 @@ const Register: FC<FormValues> = (): ReactElement => {
           src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg"
           alt="Workflow"
         />
-        <h2 className={styles.headerTitle}>Sign in to your account</h2>
+        <h2 className={styles.headerTitle}>Register a account</h2>
       </div>
 
       <div className={styles.formContainer}>
@@ -53,8 +55,18 @@ const Register: FC<FormValues> = (): ReactElement => {
               Username
             </label>
             <div className={styles.usernameInputContainer}>
-              <input name="username" ref={register({ required: true })} className={styles.usernameInputField} />
+              <input name="username" ref={register({ required: false })} className={styles.usernameInputField} />
               {errors.username && <div className="text-red-500 font-bold text-sm">{errors.username.message}</div>}
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="email" className={styles.usernameLabel}>
+              Email
+            </label>
+            <div className={styles.usernameInputContainer}>
+              <input name="email" ref={register({ required: false })} className={styles.usernameInputField} />
+              {errors.email && <div className="text-red-500 font-bold text-sm">{errors.email.message}</div>}
             </div>
           </div>
 
@@ -71,11 +83,11 @@ const Register: FC<FormValues> = (): ReactElement => {
           <div className="mt-6">
             {isSubmitting ? (
               <button type="submit" disabled={isSubmitting} className={styles.submitButton(isSubmitting)}>
-                Sign in
+                Register
               </button>
             ) : (
               <button type="submit" className={styles.submitButton(isSubmitting)}>
-                Sign in
+                Register
               </button>
             )}
           </div>
