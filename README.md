@@ -3,6 +3,21 @@ Video 4h13
 'https://github.com/vercel/next.js'
 'https://nextjs.org/docs'
 
+# Graphql Vscode Extension
+To get intellisense depending on your graphql schema 
+Schema can be found on your graphql endpoint for example: http://localhost:4000/graphql
+1. install vscode extension locally
+- name in vscode extension store: graphql.vscode-graphql
+
+# Workflow
+
+Backend: Add Resolver to make actions on a entity 
+
+
+Frontend: Add graphql mutations, queries depending on the new Resolver. 
+          npm run gen
+          Add a page which uses the new 
+
 ## shell history
 
 npx create-next-app --example with-tailwindcss little-reddit-web --use-npm
