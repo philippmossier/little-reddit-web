@@ -1,7 +1,29 @@
-# DOCS
-Video 4h13
-'https://github.com/vercel/next.js'
-'https://nextjs.org/docs'
+# Workflow
+
+- Backend: 
+1. Add Entity (Uppercase like User)
+2. Add Resolver to make actions on a entity (e.g. actions, validation, authentification)
+  Resolvers are written in lowercase like user, and need the same name as the entity they are 
+  assigned to.
+
+  Some basic decorator and types whe use:
+  Resolvers: query, mutation
+  Types: InputType and Objecttype
+
+  InputTypes are used for inputs on forms etc.
+  ObjectTypes are used for describing the Response Object of a Response etc.
+3. Run Mutations with typeorm when one of your aentity needs a change 
+  (or revert a migration) For breaking changes for example adding a required field to an existing 
+  entity, we need to wipe out the database table or make the field nullable (optional)
+
+---
+
+Frontend: 
+1. Add graphql mutations, queries depending on the new Resolver. 
+2. npm run gen (on the client)
+  This generates types from the schema defined on our server (all entities, resolvers)
+  On Top of that we can add our own types to the schema in the graphQL folder on the client (fragments, mutations, querys, urql-mutation-hooks)
+  Urql mutation hooks are based on our schema types and so we dont need to write our own hooks to update our component state.
 
 # Graphql Vscode Extension
 To get intellisense depending on your graphql schema 
@@ -9,14 +31,9 @@ Schema can be found on your graphql endpoint for example: http://localhost:4000/
 1. install vscode extension locally
 - name in vscode extension store: graphql.vscode-graphql
 
-# Workflow
-
-Backend: Add Resolver to make actions on a entity 
-
-
-Frontend: Add graphql mutations, queries depending on the new Resolver. 
-          npm run gen
-          Add a page which uses the new 
+# Tutorial process
+Video Tutorial 5h13
+https://www.youtube.com/watch?v=I6ypD7qv3Z8&t=16577s
 
 ## shell history
 
@@ -25,7 +42,6 @@ npm install -D stylelint stylelint-config-standard
 npm install -D typescript @types/react @types/node
 npm install react-hook-form
 
-**update tailwindcss to latest version:**
 npm install -D tailwindcss@^1.0
 npm install @tailwindcss/ui
 npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react prettier eslint-config-prettier eslint-plugin-prettier
@@ -182,15 +198,7 @@ const Register: FC = (): ReactElement => {
 };
 
 export default Register;
-
 ```
-
-
-
-
-
-
-
 
 ## HOW TO USE classnames()
 

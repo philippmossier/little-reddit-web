@@ -20,18 +20,20 @@ const Login: FC<FormValues> = (): ReactElement => {
 
   const onSubmit = async (data: FormValues) => {
     const response = await loginMut(data);
-    // if no connection
-    if (!response) console.log('Promise unresolved, check connection');
-    if (response.error) console.log('Error occured in onSubmit:', response.error);
-
-    if (response.data?.login.errors) {
+    // success:
+    if (response.data?.login.user) {
+      console.log('Login succesfully as:', response.data.login.user);
+      router.push('/');
+    }
+    // if no connection:
+    else if (!response) console.log('Promise unresolved, check connection');
+    // error handling:
+    else if (response.error) console.log('Error occured in onSubmit:', response.error);
+    else if (response.data?.login.errors) {
       console.log(toErrorMap(response.data.login.errors));
       const errorObj = toErrorMap(response.data.login.errors);
       if ('usernameOrEmail' in errorObj) setError('usernameOrEmail', { message: errorObj.usernameOrEmail });
       if ('password' in errorObj) setError('password', { message: errorObj.password });
-    } else if (response.data?.login.user) {
-      console.log('Login succesfully as:', response.data.login.user);
-      router.push('/');
     }
   };
 
@@ -55,7 +57,7 @@ const Login: FC<FormValues> = (): ReactElement => {
             <div className={styles.usernameInputContainer}>
               <input name="usernameOrEmail" ref={register({ required: true })} className={styles.usernameInputField} />
               {errors.usernameOrEmail && (
-                <div className="text-red-500 font-bold text-sm">{errors.usernameOrEmail.message}</div>
+                <div className="text-red-500 text-sm font-bold">{errors.usernameOrEmail.message}</div>
               )}
             </div>
           </div>
@@ -66,7 +68,7 @@ const Login: FC<FormValues> = (): ReactElement => {
             </label>
             <div className={styles.passwordInputContainer}>
               <input name="password" ref={register({ required: true })} className={styles.passwordInputField} />
-              {errors.password && <div className="text-red-500 font-bold text-sm">{errors.password.message}</div>}
+              {errors.password && <div className="text-red-500 text-sm font-bold">{errors.password.message}</div>}
             </div>
           </div>
 

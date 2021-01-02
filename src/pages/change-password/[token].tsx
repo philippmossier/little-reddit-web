@@ -29,19 +29,22 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
       newPassword: data.newPassword,
       token,
     });
-    // if no connection
-    if (!response) console.log('Promise unresolved, check connection');
-    if (response.error) console.log('Error occured in onSubmit:', response.error);
-    if (response.data?.changePassword.errors) {
+    // success:
+    if (response.data?.changePassword.user) {
+      console.log('Changed password succesfully as:', response.data.changePassword.user);
+      router.push('/');
+    }
+    // no connection:
+    else if (!response) console.log('Promise unresolved, check connection');
+    // error handling:
+    else if (response.error) console.log('Error occured in onSubmit:', response.error);
+    else if (response.data?.changePassword.errors) {
       console.log(toErrorMap(response.data.changePassword.errors));
       const errorObj = toErrorMap(response.data.changePassword.errors);
       if ('newPassword' in errorObj) setError('newPassword', { message: errorObj.newPassword });
       // as token is not a formfield wie have to use our tokenError hook here
       // to set the error manually and render its message in a custom alert-box
       if ('token' in errorObj) setTokenError(errorObj.token);
-    } else if (response.data?.changePassword.user) {
-      console.log('Changed password succesfully as:', response.data.changePassword.user);
-      router.push('/');
     }
   };
 
@@ -64,19 +67,19 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
                 ref={register({ required: true })}
                 className={styles.usernameInputField}
               />
-              {errors.newPassword && <div className="text-red-500 font-bold text-sm">{errors.newPassword.message}</div>}
+              {errors.newPassword && <div className="text-red-500 text-sm font-bold">{errors.newPassword.message}</div>}
             </div>
           </div>
           {tokenError ? (
             <div>
-              <div className="flex bg-red-500 mb-4 my-4 w-full">
-                <div className="w-16 bg-red">
+              <div className="flex mb-4 my-4 w-full bg-red-500">
+                <div className="bg-red w-16">
                   <div className="p-4">
                     <AlertSvg />
                   </div>
                 </div>
-                <div className="w-full text-black bg-red-300 items-center p-4">
-                  <span className="text-lg font-bold pb-4">Heads Up!</span>
+                <div className="items-center p-4 w-full text-black bg-red-300">
+                  <span className="pb-4 text-lg font-bold">Heads Up!</span>
                   <p className="leading-tight">{tokenError}</p>
                 </div>
               </div>

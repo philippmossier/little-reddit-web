@@ -47,7 +47,7 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
   }
 
   return (
-    <nav className="bg-cool-gray-800">
+    <nav className="bg-gray-800">
       <div className="flex h-16 items-center">
         <div id="root" className="ml-auto mr-2">
           {body}

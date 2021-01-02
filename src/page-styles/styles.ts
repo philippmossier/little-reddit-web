@@ -1,8 +1,8 @@
-import classNames, { classnames, TTailwindString } from '../../tailwindcss-classnames';
+import classNames, { classnames, TTailwindString } from 'tailwindcss-classnames';
 
 export const container = classNames(
   'min-h-screen',
-  'bg-gray-50',
+  'bg-gray-100',
   'flex',
   'flex-col',
   'justify-center',
@@ -47,7 +47,7 @@ export const usernameInputField = classNames(
   'rounded-md',
   'placeholder-gray-400',
   'focus:outline-none',
-  'focus:shadow-outline-blue',
+  'focus:shadow-outline',
   'focus:border-blue-300',
   'transition',
   'duration-150',
@@ -69,7 +69,7 @@ export const passwordInputField = classNames(
   'rounded-md',
   'placeholder-gray-400',
   'focus:outline-none',
-  'focus:shadow-outline-blue',
+  'focus:shadow-outline',
   'focus:border-blue-300',
   'transition',
   'duration-150',
@@ -94,8 +94,7 @@ export const button = classNames(
   'hover:bg-indigo-500',
   'focus:outline-none',
   'focus:border-indigo-700',
-  'focus:shadow-outline-indigo',
-  'active:bg-indigo-700',
+  'focus:shadow-outline',
   'transition',
   'duration-150',
   'ease-in-out',

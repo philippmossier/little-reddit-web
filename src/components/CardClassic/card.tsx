@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 
 const Card: FC = (): ReactElement => {
   return (
-    <div className="md:flex p-4">
+    <div className="p-4 md:flex">
       <div className="md:flex-shrink-0">
         <img
           className="rounded-lg md:w-56"
@@ -11,9 +11,9 @@ const Card: FC = (): ReactElement => {
         />
       </div>
 
-      <div className="mt-4 md:mt-0 md:ml-6">
-        <div className="uppercase tracking-wide text-sm text-indigo-600 font-bold">Marketing</div>
-        <a href="/" className="block mt-1 text-lg leading-tight font-semibold text-gray-900 hover:underline">
+      <div className="mt-4 md:ml-6 md:mt-0">
+        <div className="text-indigo-600 text-sm font-bold tracking-wide uppercase">Marketing</div>
+        <a href="/" className="block mt-1 text-gray-900 hover:underline text-lg font-semibold leading-tight">
           Finding customers for your new business
         </a>
         <p className="mt-2 text-gray-600">

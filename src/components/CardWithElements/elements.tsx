@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, ReactElement } from 'react';
-import { classnames } from '../../../tailwindcss-classnames';
+import { classnames } from 'tailwindcss-classnames';
 
 type StyleProps = {
   children?: ReactNode;

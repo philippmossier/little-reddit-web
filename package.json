@@ -9,16 +9,18 @@
     "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@tailwindcss/ui": "^0.5.0",
     "@urql/exchange-graphcache": "^3.1.1",
+    "autoprefixer": "^10.1.0",
     "graphql": "^15.3.0",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "latest",
+    "next": "10.0.4",
     "next-urql": "^1.1.0",
+    "postcss": "^8.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.7.2",
     "react-is": "^16.13.1",
+    "tailwindcss-classnames": "^1.9.0",
     "urql": "^1.10.1"
   },
   "devDependencies": {
@@ -34,12 +36,11 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
-    "postcss-flexbugs-fixes": "4.2.1",
-    "postcss-preset-env": "^6.7.0",
     "prettier": "^2.1.1",
+    "prettier-plugin-tailwind": "^2.2.8",
     "stylelint": "^13.7.0",
     "stylelint-config-standard": "^20.0.0",
-    "tailwindcss": "^1.8.3",
+    "tailwindcss": "^2.0.2",
     "typescript": "^4.0.2"
   },
   "license": "MIT"

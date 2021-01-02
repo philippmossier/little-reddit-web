@@ -21,19 +21,21 @@ const Register: FC<FormValues> = (): ReactElement => {
 
   const onSubmit = async (data: FormValues) => {
     const response = await registerMut({ options: data });
+    // success:
+    if (response.data?.register.user) {
+      console.log('Successfull registered:', response.data);
+      router.push('/');
+    }
     // if no connection
-    if (!response) console.log('Promise unresolved, check connection');
-    if (response.error) console.log('Error occured in onSubmit:', response.error);
-
-    if (response.data?.register.errors) {
+    else if (!response) console.log('Promise unresolved, check connection');
+    // error handling:
+    else if (response.error) console.log('Error occured in onSubmit:', response.error);
+    else if (response.data?.register.errors) {
       console.log(toErrorMap(response.data.register.errors));
       const errorObj = toErrorMap(response.data.register.errors);
       if ('username' in errorObj) setError('username', { message: errorObj.username });
       if ('email' in errorObj) setError('email', { message: errorObj.email });
       if ('password' in errorObj) setError('password', { message: errorObj.password });
-    } else if (response.data?.register.user) {
-      console.log('Successfull registered:', response.data);
-      router.push('/');
     }
   };
 
@@ -55,8 +57,13 @@ const Register: FC<FormValues> = (): ReactElement => {
               Username
             </label>
             <div className={styles.usernameInputContainer}>
-              <input name="username" ref={register({ required: false })} className={styles.usernameInputField} />
-              {errors.username && <div className="text-red-500 font-bold text-sm">{errors.username.message}</div>}
+              {/* <input name="username" ref={register({ required: false })} className={styles.usernameInputField} /> */}
+              <input
+                name="username"
+                ref={register({ required: false })}
+                className="focus:shadow-outline placeholder-gray-400 block px-3 py-2 w-full border focus:border-blue-300 border-gray-300 rounded-md focus:outline-none appearance-none transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              />
+              {errors.username && <div className="text-red-500 text-sm font-bold">{errors.username.message}</div>}
             </div>
           </div>
 
@@ -66,7 +73,7 @@ const Register: FC<FormValues> = (): ReactElement => {
             </label>
             <div className={styles.usernameInputContainer}>
               <input name="email" ref={register({ required: false })} className={styles.usernameInputField} />
-              {errors.email && <div className="text-red-500 font-bold text-sm">{errors.email.message}</div>}
+              {errors.email && <div className="text-red-500 text-sm font-bold">{errors.email.message}</div>}
             </div>
           </div>
 
@@ -76,7 +83,7 @@ const Register: FC<FormValues> = (): ReactElement => {
             </label>
             <div className={styles.passwordInputContainer}>
               <input name="password" ref={register({ required: true })} className={styles.passwordInputField} />
-              {errors.password && <div className="text-red-500 font-bold text-sm">{errors.password.message}</div>}
+              {errors.password && <div className="text-red-500 text-sm font-bold">{errors.password.message}</div>}
             </div>
           </div>
 

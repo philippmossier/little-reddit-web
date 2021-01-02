@@ -11,7 +11,6 @@ const Card: FC = (): ReactElement => {
           alt="Woman paying for a purchase"
         />
       </div>
-
       <div className={styles.textContainer}>
         <div className={styles.label}>Marketing</div>
         <a href="/" className={styles.title}>
