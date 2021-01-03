@@ -44,7 +44,7 @@ const Register: FC<FormValues> = (): ReactElement => {
       <div className={styles.headerContainer}>
         <img
           className={styles.headerLogo}
-          src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg"
+          src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
           alt="Workflow"
         />
         <h2 className={styles.headerTitle}>Register a account</h2>
@@ -53,37 +53,37 @@ const Register: FC<FormValues> = (): ReactElement => {
       <div className={styles.formContainer}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="username" className={styles.usernameLabel}>
+            <label htmlFor="username" className={styles.label}>
               Username
             </label>
-            <div className={styles.usernameInputContainer}>
+            <div className={styles.inputContainer}>
               {/* <input name="username" ref={register({ required: false })} className={styles.usernameInputField} /> */}
               <input
                 name="username"
                 ref={register({ required: false })}
-                className="focus:shadow-outline placeholder-gray-400 block px-3 py-2 w-full border focus:border-blue-300 border-gray-300 rounded-md focus:outline-none appearance-none transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                className="focus:shadow-outline focus:border-blue-300 focus:outline-none sm:text-sm sm:leading-5 block w-full px-3 py-2 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md appearance-none"
               />
-              {errors.username && <div className="text-red-500 text-sm font-bold">{errors.username.message}</div>}
+              {errors.username && <div className="text-sm font-bold text-red-500">{errors.username.message}</div>}
             </div>
           </div>
 
           <div>
-            <label htmlFor="email" className={styles.usernameLabel}>
+            <label htmlFor="email" className={styles.label}>
               Email
             </label>
-            <div className={styles.usernameInputContainer}>
-              <input name="email" ref={register({ required: false })} className={styles.usernameInputField} />
-              {errors.email && <div className="text-red-500 text-sm font-bold">{errors.email.message}</div>}
+            <div className={styles.inputContainer}>
+              <input name="email" ref={register({ required: false })} className={styles.inputField} />
+              {errors.email && <div className="text-sm font-bold text-red-500">{errors.email.message}</div>}
             </div>
           </div>
 
           <div className="mt-6">
-            <label htmlFor="password" className={styles.passwordLabel}>
+            <label htmlFor="password" className={styles.label}>
               Password
             </label>
-            <div className={styles.passwordInputContainer}>
-              <input name="password" ref={register({ required: true })} className={styles.passwordInputField} />
-              {errors.password && <div className="text-red-500 text-sm font-bold">{errors.password.message}</div>}
+            <div className={styles.inputContainer}>
+              <input name="password" ref={register({ required: true })} className={styles.inputField} />
+              {errors.password && <div className="text-sm font-bold text-red-500">{errors.password.message}</div>}
             </div>
           </div>
 

@@ -1,5 +1,6 @@
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/dist/client/router';
+import NextLink from 'next/link';
 import React, { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoginMutation } from '../generated/graphql';
@@ -42,7 +43,7 @@ const Login: FC<FormValues> = (): ReactElement => {
       <div className={styles.headerContainer}>
         <img
           className={styles.headerLogo}
-          src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg"
+          src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
           alt="Workflow"
         />
         <h2 className={styles.headerTitle}>Sign in to your account</h2>
@@ -51,28 +52,36 @@ const Login: FC<FormValues> = (): ReactElement => {
       <div className={styles.formContainer}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="usernameOrEmail" className={styles.usernameLabel}>
+            <label htmlFor="usernameOrEmail" className={styles.label}>
               Username or Email
             </label>
-            <div className={styles.usernameInputContainer}>
-              <input name="usernameOrEmail" ref={register({ required: true })} className={styles.usernameInputField} />
+            <div className={styles.inputContainer}>
+              <input name="usernameOrEmail" ref={register({ required: true })} className={styles.inputField} />
               {errors.usernameOrEmail && (
-                <div className="text-red-500 text-sm font-bold">{errors.usernameOrEmail.message}</div>
+                <div className="text-sm font-bold text-red-500">{errors.usernameOrEmail.message}</div>
               )}
             </div>
           </div>
 
-          <div className="mt-6">
-            <label htmlFor="password" className={styles.passwordLabel}>
+          <div className="mt-4 mb-2">
+            <label htmlFor="password" className={styles.label}>
               Password
             </label>
-            <div className={styles.passwordInputContainer}>
-              <input name="password" ref={register({ required: true })} className={styles.passwordInputField} />
-              {errors.password && <div className="text-red-500 text-sm font-bold">{errors.password.message}</div>}
+            <div className={styles.inputContainer}>
+              <input name="password" ref={register({ required: true })} className={styles.inputField} />
+              {errors.password && <div className="text-sm font-bold text-red-500">{errors.password.message}</div>}
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="flex justify-end">
+            <NextLink href="/forgot-password">
+              <span className="hover:text-black hover:border-black text-sm tracking-tighter text-gray-600 border-b border-gray-300 cursor-pointer">
+                Forgot Password?
+              </span>
+            </NextLink>
+          </div>
+
+          <div className="mt-4">
             {isSubmitting ? (
               <button type="submit" disabled={isSubmitting} className={styles.submitButton(isSubmitting)}>
                 Sign in

@@ -33,32 +33,10 @@ export const formContainer = classNames(
   'sm:rounded-lg',
   'sm:px-10',
 );
-export const usernameLabel = classNames('block', 'text-sm', 'font-medium', 'leading-5', 'text-gray-700');
 
-export const usernameInputContainer = classNames('mt-1', 'rounded-md', 'shadow-sm');
-export const usernameInputField = classNames(
-  'appearance-none',
-  'block',
-  'w-full',
-  'px-3',
-  'py-2',
-  'border',
-  'border-gray-300',
-  'rounded-md',
-  'placeholder-gray-400',
-  'focus:outline-none',
-  'focus:shadow-outline',
-  'focus:border-blue-300',
-  'transition',
-  'duration-150',
-  'ease-in-out',
-  'sm:text-sm',
-  'sm:leading-5',
-);
-
-export const passwordLabel = classNames('block', 'text-sm', 'font-medium', 'leading-5', 'text-gray-700');
-export const passwordInputContainer = classNames('mt-1', 'rounded-md', 'shadow-sm');
-export const passwordInputField = classNames(
+export const label = classNames('block', 'text-sm', 'font-medium', 'leading-5', 'text-gray-700');
+export const inputContainer = classNames('mt-1', 'rounded-md', 'shadow-sm');
+export const inputField = classNames(
   'appearance-none',
   'block',
   'w-full',

@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form';
 import createUrqlClient from '../../utils/createUrqlClient';
 import NextLink from 'next/link';
 import AlertSvg from '../../assets/svg/AlertSvg';
-import ExternalLinkSvg from '../../assets/svg/ExternalLinkSvg';
 
 type FormValues = {
   newPassword: string;
@@ -51,49 +50,55 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
+        <img
+          className={styles.headerLogo}
+          src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+          alt="Workflow"
+        />
         <h2 className={styles.headerTitle}>Enter your new password</h2>
       </div>
 
       <div className={styles.formContainer}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="newPassword" className={styles.usernameLabel}>
+            <label htmlFor="newPassword" className={styles.label}>
               New password
             </label>
-            <div className={styles.usernameInputContainer}>
+            <div className={styles.inputContainer}>
               <input
                 name="newPassword"
                 type="password"
                 ref={register({ required: true })}
-                className={styles.usernameInputField}
+                className={styles.inputField}
               />
-              {errors.newPassword && <div className="text-red-500 text-sm font-bold">{errors.newPassword.message}</div>}
+              {errors.newPassword && <div className="text-sm font-bold text-red-500">{errors.newPassword.message}</div>}
             </div>
           </div>
           {tokenError ? (
             <div>
-              <div className="flex mb-4 my-4 w-full bg-red-500">
+              <div className="flex w-full mt-4 mb-2 bg-red-500">
                 <div className="bg-red w-16">
                   <div className="p-4">
                     <AlertSvg />
                   </div>
                 </div>
-                <div className="items-center p-4 w-full text-black bg-red-300">
+                <div className="items-center w-full p-4 text-black bg-red-300">
                   <span className="pb-4 text-lg font-bold">Heads Up!</span>
                   <p className="leading-tight">{tokenError}</p>
                 </div>
               </div>
 
-              <NextLink href="/forgot-password">
-                <a className="flex justify-center py-2 bg-gray-200 hover:bg-gray-300 border rounded-md">
-                  <p className="pr-2">click here to get a new one</p>
-                  <ExternalLinkSvg />
-                </a>
-              </NextLink>
+              <div className="flex justify-end">
+                <NextLink href="/forgot-password">
+                  <span className="hover:text-black hover:border-black text-sm tracking-tighter text-gray-600 border-b border-gray-300 cursor-pointer">
+                    Get a new one here
+                  </span>
+                </NextLink>
+              </div>
             </div>
           ) : null}
 
-          <div className="mt-6">
+          <div className="mt-4">
             {isSubmitting ? (
               <button type="submit" disabled={isSubmitting} className={styles.submitButton(isSubmitting)}>
                 Submit
