@@ -23,8 +23,13 @@ const Login: FC<FormValues> = (): ReactElement => {
     const response = await loginMut(data);
     // success:
     if (response.data?.login.user) {
-      console.log('Login succesfully as:', response.data.login.user);
-      router.push('/');
+      console.log('Logged in succesfully as:', response.data.login.user);
+      if (typeof router.query.next === 'string') {
+        // if a next route exist after user logs in go there
+        router.push(router.query.next);
+      } else {
+        router.push('/');
+      }
     }
     // if no connection:
     else if (!response) console.log('Promise unresolved, check connection');

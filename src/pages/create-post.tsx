@@ -6,6 +6,7 @@ import * as styles from '../page-styles/styles';
 import createUrqlClient from '../utils/createUrqlClient';
 import { useRouter } from 'next/router';
 import { Layout } from '../components/Layout/Layout';
+import { useIsAuth } from '../utils/useIsAuth';
 
 // TODO:  make navbar layout wrapper sticky when scrolling
 //        check if create-post needs form error handling
@@ -15,6 +16,7 @@ const CreatePost: React.FC = () => {
   const { register, handleSubmit, formState } = useForm<PostInput>();
   const { isSubmitting } = formState;
   const router = useRouter();
+  useIsAuth();
 
   const onSubmit = async (data: PostInput) => {
     // success:
@@ -25,8 +27,8 @@ const CreatePost: React.FC = () => {
     }
     // if no connection:
     else if (!response) console.log('Promise unresolved, check connection');
-    // error handling:
-    else if (response.error) console.log('Error occured in onSubmit:', response.error);
+    // global error handling (bad practice, better to handle them in one component):
+    // else if (response.error) console.log('Error occured in onSubmit:', response.error);
   };
 
   return (

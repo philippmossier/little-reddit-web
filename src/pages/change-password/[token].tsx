@@ -15,7 +15,7 @@ type FormValues = {
   token: string;
 };
 
-const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
+const ChangePassword: NextPage = () => {
   const [, changePasswordMut] = useChangePasswordMutation(); // mutation hook from '@graphql-codegen/typescript-urql'
   const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();
   const { isSubmitting } = formState;
@@ -26,7 +26,7 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
   const onSubmit = async (data: FormValues) => {
     const response = await changePasswordMut({
       newPassword: data.newPassword,
-      token,
+      token: typeof router.query.token === 'string' ? router.query.token : '',
     });
     // success:
     if (response.data?.changePassword.user) {
@@ -114,10 +114,12 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
     </div>
   );
 };
-// special function which gets all query params
-ChangePassword.getInitialProps = ({ query }) => {
-  return {
-    token: query.token as string,
-  };
-};
+// // special function which gets all query params, dont needed if we use the router to receive the token from the query,
+// // router can access the token through router.query.token
+// // Dont use getInitalProps if dont needed because nextjs makes sites static and optimizes them, if they do not use initialProps
+// ChangePassword.getInitialProps = ({ query }) => {
+//   return {
+//     token: query.token as string,
+//   };
+// };
 export default withUrqlClient(createUrqlClient)(ChangePassword);
