@@ -20,7 +20,7 @@ const IndexPage: FC = (): ReactElement => {
           <div>loading ...</div>
         ) : (
           data.posts.map((p) => (
-            <div className="p-6 border-2 border-solid shadow-md" key={p.id}>
+            <div className="p-6 mt-8 bg-indigo-200 border-2 border-solid shadow-md" key={p.id}>
               <h3 className="text-xl">{p.title}</h3>
               <p className="mt-4">{p.text}</p>
             </div>
