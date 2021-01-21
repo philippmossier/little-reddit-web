@@ -1,6 +1,7 @@
+import { NextPage } from 'next';
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/dist/client/router';
-import React, { FC, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRegisterMutation } from '../generated/graphql';
 import * as styles from '../page-styles/styles';
@@ -13,7 +14,7 @@ type FormValues = {
   password: string;
 };
 
-const Register: FC<FormValues> = (): ReactElement => {
+const Register: NextPage = (): ReactElement => {
   const [, registerMut] = useRegisterMutation(); // mutation hook from '@graphql-codegen/typescript-urql'
   const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();
   const { isSubmitting } = formState;

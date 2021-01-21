@@ -1,0 +1,48 @@
+{
+    "name": "with-tailwindcss",
+    "version": "1.0.0",
+    "scripts": {
+      "dev": "next",
+      "build": "next build",
+      "start": "next start",
+      "generate-css-types": "tailwindcss-classnames --config tailwind.config.js",
+      "gen": "graphql-codegen --config codegen.yml"
+    },
+    "dependencies": {
+      "@urql/exchange-graphcache": "^3.1.1",
+      "autoprefixer": "^10.1.0",
+      "graphql": "^15.3.0",
+      "isomorphic-unfetch": "^3.0.0",
+      "next": "^10.0.4",
+      "next-urql": "^1.1.0",
+      "postcss": "^8.2.2",
+      "react": "^16.13.1",
+      "react-dom": "^16.13.1",
+      "react-hook-form": "^6.7.2",
+      "react-is": "^16.13.1",
+      "tailwindcss-classnames": "^1.9.0",
+      "urql": "^1.10.1"
+    },
+    "devDependencies": {
+      "@graphql-codegen/cli": "1.20.0",
+      "@graphql-codegen/typescript": "1.20.0",
+      "@graphql-codegen/typescript-operations": "1.17.13",
+      "@graphql-codegen/typescript-urql": "^2.0.1",
+      "@types/node": "^14.6.4",
+      "@types/react": "^16.9.49",
+      "@typescript-eslint/eslint-plugin": "^4.0.1",
+      "@typescript-eslint/parser": "^4.0.1",
+      "eslint": "^7.8.1",
+      "eslint-config-prettier": "^6.11.0",
+      "eslint-plugin-prettier": "^3.1.4",
+      "eslint-plugin-react": "^7.20.6",
+      "prettier": "^2.1.1",
+      "prettier-plugin-tailwind-css": "^1.4.0",
+      "stylelint": "^13.7.0",
+      "stylelint-config-standard": "^20.0.0",
+      "tailwindcss": "^2.0.2",
+      "typescript": "^4.0.2"
+    },
+    "license": "MIT"
+  }
+  
