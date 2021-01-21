@@ -9,12 +9,24 @@ const IndexPage: FC = (): ReactElement => {
   const [{ data }] = usePostsQuery({ variables: { limit: 10 } });
   return (
     <Layout>
-      <NextLink href="/create-post">
-        <a className="mx-2 text-black">Create Post</a>
-      </NextLink>
-      <div>Hello World</div>
-      <br />
-      {!data ? <div>loading ...</div> : data.posts.map((p) => <div key={p.id}>{p.title}</div>)}
+      <div className="p-6">
+        <NextLink href="/create-post">
+          <a className="px-4 py-2 text-black bg-yellow-500 border-solid rounded-lg shadow-sm">Create Post</a>
+        </NextLink>
+      </div>
+
+      <div className="px-4">
+        {!data ? (
+          <div>loading ...</div>
+        ) : (
+          data.posts.map((p) => (
+            <div className="p-6 border-2 border-solid shadow-md" key={p.id}>
+              <h3 className="text-xl">{p.title}</h3>
+              <p className="mt-4">{p.text}</p>
+            </div>
+          ))
+        )}
+      </div>
     </Layout>
   );
 };
