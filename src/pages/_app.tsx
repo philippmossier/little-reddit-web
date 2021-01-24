@@ -10,7 +10,7 @@ function App({ Component, pageProps }: AppProps): ReactElement {
       <Head>
         <script src="https://kit.fontawesome.com/3a479e02a7.js" crossOrigin="anonymous"></script>
       </Head>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </div>
   );
 }
