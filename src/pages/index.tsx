@@ -4,10 +4,11 @@ import { Layout } from '../components/Layout/Layout';
 import { usePostsQuery } from '../generated/graphql';
 import createUrqlClient from '../utils/createUrqlClient';
 import NextLink from 'next/link';
+import UpvoteSection from '../components/UpvoteSection';
 
 const Index: FC = (): ReactElement => {
   const [variables, setVariables] = useState({
-    limit: 33,
+    limit: 15,
     cursor: null as string | null,
   });
   const [{ data, fetching }] = usePostsQuery({ variables });
@@ -28,10 +29,14 @@ const Index: FC = (): ReactElement => {
           <div>loading ...</div>
         ) : (
           data.posts.posts.map((p) => (
-            <div className="md:w-4/5 lg:w-4/6 p-4 m-auto mt-8 border-2 border-solid shadow-md" key={p.id}>
-              <h3 className="text-2xl font-bold">{p.title}</h3>
-              <p className="mt-4">{p.textSnippet}</p>
-              <p className="mt-4">{p.id}</p>
+            <div className="md:w-4/5 lg:w-4/6 flex p-4 m-auto mt-8 border-2 border-solid shadow-md" key={p.id}>
+              <UpvoteSection post={p} />
+              <div>
+                <h3 className="text-2xl font-bold">{p.title}</h3>
+                <span>Posted by: {p.creator.username}</span>
+                <div className="mt-4">{p.textSnippet}</div>
+                <div className="mt-4">{p.id}</div>
+              </div>
             </div>
           ))
         )}
@@ -39,13 +44,14 @@ const Index: FC = (): ReactElement => {
       {data && data.posts.hasMore ? (
         <div className="flex">
           {fetching ? (
-            // <button type="button" className="bg-rose-600 ..." disabled
-            // <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"
-            //   Todo add spinning sv
-            // </svg
-            // Processin
-            // </button
-            <div>loading more ...</div>
+            <button
+              type="button"
+              className="px-4 py-2 m-auto my-4 font-bold text-black bg-gray-300 rounded-md shadow-sm cursor-not-allowed"
+              disabled
+            >
+              <i className="animate-spin fas fa-spinner"></i>
+              <span> Processing</span>
+            </button>
           ) : (
             <button
               onClick={() =>

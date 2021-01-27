@@ -4,6 +4,7 @@ import { LoginMutation, LogoutMutation, MeDocument, MeQuery, RegisterMutation } 
 import { betterUpdateQuery } from './betterUpdateQuery';
 import { pipe, tap } from 'wonka';
 import Router from 'next/router';
+import { inspectFields } from '@urql/exchange-graphcache/dist/types/store/data';
 
 const errorExchange: Exchange = ({ forward }) => (ops$) => {
   return pipe(
@@ -44,7 +45,7 @@ export const cursorPagination = (): Resolver => {
       if (!_hasMore) {
         hasMore = _hasMore as boolean;
       }
-      console.log('data', hasMore, data);
+      // console.log('data', hasMore, data);
       results.push(...data);
     });
     return {
@@ -71,6 +72,17 @@ const createUrqlClient = (ssrExchange: any) => ({
       },
       updates: {
         Mutation: {
+          createPost: (_result, args, cache, info) => {
+            // Invalidate the cache and a specific query when a new post is created,
+            // so posts get refetched and the newest posts are always on the top.
+            // To invalidate a query we have to invalidate all the arguments on the specific query
+            const allFields = cache.inspectFields('Query');
+            const fieldInfos = allFields.filter((info) => info.fieldName === 'posts');
+            fieldInfos.forEach((fi) => {
+              cache.invalidate('Query', 'posts', fi.arguments || {});
+            });
+          },
+
           login: (_result, args, cache, info) => {
             betterUpdateQuery<LoginMutation, MeQuery>(cache, { query: MeDocument }, _result, (result, query) => {
               if (result.login.errors) {
