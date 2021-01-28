@@ -22,7 +22,7 @@ const Index: FC = (): ReactElement => {
         </NextLink>
       </div>
 
-      <div key="3124452" className="px-4">
+      <div className="px-4">
         {!fetching && !data && <h1>You got no posts for some reason</h1>}
 
         {!data ? (
