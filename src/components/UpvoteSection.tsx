@@ -10,12 +10,16 @@ const UpvoteSection: React.FC<UpvoteSectionProps> = ({ post }) => {
   const [loadingState, setLoadingState] = useState<'upvote-loading' | 'downvote-loading' | 'not-loading'>(
     'not-loading',
   );
-  const [{ fetching }, vote] = useVoteMutation();
+  const [, vote] = useVoteMutation();
+
   return (
     <div className="flex flex-col items-center justify-center mr-4">
       {loadingState === 'not-loading' ? (
         <button
           onClick={async () => {
+            if (post.voteStatus === 1) {
+              return;
+            }
             setLoadingState('upvote-loading');
             await vote({
               postId: post.id,
@@ -23,7 +27,9 @@ const UpvoteSection: React.FC<UpvoteSectionProps> = ({ post }) => {
             });
             setLoadingState('not-loading');
           }}
-          className="hover:text-gray-900 focus:outline-none text-gray-500"
+          className={`hover:text-gray-900 focus:outline-none ${
+            post.voteStatus === 1 ? `text-green-500` : `text-gray-500`
+          }`}
         >
           <i aria-hidden className="fas fa-chevron-up" />
         </button>
@@ -37,6 +43,9 @@ const UpvoteSection: React.FC<UpvoteSectionProps> = ({ post }) => {
       {loadingState === 'not-loading' ? (
         <button
           onClick={async () => {
+            if (post.voteStatus === -1) {
+              return;
+            }
             setLoadingState('upvote-loading');
             await vote({
               postId: post.id,
@@ -44,7 +53,9 @@ const UpvoteSection: React.FC<UpvoteSectionProps> = ({ post }) => {
             });
             setLoadingState('not-loading');
           }}
-          className="hover:text-gray-900 focus:outline-none text-gray-500"
+          className={`hover:text-gray-900 focus:outline-none ${
+            post.voteStatus === -1 ? `text-red-500` : `text-gray-500`
+          }`}
         >
           <i aria-hidden className="fas fa-chevron-down " />
         </button>
