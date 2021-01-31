@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/dist/client/router';
 import NextLink from 'next/link';
@@ -14,7 +13,7 @@ type FormValues = {
   password: string;
 };
 
-const Login: NextPage = (): ReactElement => {
+const Login: React.FC = (): ReactElement => {
   const [, loginMut] = useLoginMutation(); // mutation hook from '@graphql-codegen/typescript-urql'
   const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();
   const { isSubmitting } = formState;

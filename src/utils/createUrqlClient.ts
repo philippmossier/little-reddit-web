@@ -4,7 +4,6 @@ import { LoginMutation, LogoutMutation, MeDocument, MeQuery, RegisterMutation } 
 import { betterUpdateQuery } from './betterUpdateQuery';
 import { pipe, tap } from 'wonka';
 import Router from 'next/router';
-import { inspectFields } from '@urql/exchange-graphcache/dist/types/store/data';
 
 const errorExchange: Exchange = ({ forward }) => (ops$) => {
   return pipe(

@@ -1,5 +1,5 @@
 import { withUrqlClient } from 'next-urql';
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useForgotPasswordMutation } from '../generated/graphql';
 import * as styles from '../page-styles/styles';
@@ -10,7 +10,7 @@ type FormValues = {
   email: string;
 };
 
-const ForgotPasswordPage: React.FC<FormValues> = ({}) => {
+const ForgotPasswordPage: React.FC = (): ReactElement => {
   const [complete, setComplete] = useState(false);
   const [, forgotPasswordMut] = useForgotPasswordMutation();
   const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();

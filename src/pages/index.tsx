@@ -35,7 +35,6 @@ const Index: FC = (): ReactElement => {
                 <h3 className="text-2xl font-bold">{p.title}</h3>
                 <span>Posted by: {p.creator.username}</span>
                 <div className="mt-4">{p.textSnippet}</div>
-                <div className="mt-4">{p.id}</div>
               </div>
             </div>
           ))
