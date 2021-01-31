@@ -15,24 +15,20 @@ const Index: FC = (): ReactElement => {
   // TODO: fetching is always false, urql does not tell us when data is fetching with ur current cache setup on createUrqlClient.ts
   return (
     <Layout>
-      <div className="md:w-4/5 lg:w-4/6 flex items-center justify-between p-6 m-auto">
-        <h1 className="text-5xl font-bold text-red-600">Little Rabbit</h1>
-        <NextLink href="/create-post">
-          <a className="px-4 py-2 text-black bg-yellow-500 border-solid rounded-lg shadow-sm">Create Post</a>
-        </NextLink>
-      </div>
-
       <div className="px-4">
         {!fetching && !data && <h1>You got no posts for some reason</h1>}
 
-        {!data ? (
+        {!data && fetching ? (
           <div>loading ...</div>
         ) : (
-          data.posts.posts.map((p) => (
+          data!.posts.posts.map((p) => (
             <div className="md:w-4/5 lg:w-4/6 flex p-4 m-auto mt-8 border-2 border-solid shadow-md" key={p.id}>
               <UpvoteSection post={p} />
               <div>
-                <h3 className="text-2xl font-bold">{p.title}</h3>
+                <div></div>
+                <NextLink href="/post/[id]" as={`/post/${p.id}`}>
+                  <h3 className="hover:underline text-2xl font-bold cursor-pointer">{p.title}</h3>
+                </NextLink>
                 <span>Posted by: {p.creator.username}</span>
                 <div className="mt-4">{p.textSnippet}</div>
               </div>

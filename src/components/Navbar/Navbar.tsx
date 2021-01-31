@@ -3,9 +3,7 @@ import NextLink from 'next/link';
 import { useLogoutMutation, useMeQuery } from '../../generated/graphql';
 import { useRouter } from 'next/router';
 
-type NavBarProps = unknown;
-
-const NavBar: React.FC<NavBarProps> = ({}) => {
+const NavBar: React.FC<React.ReactNode> = () => {
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
   const [{ data, fetching }] = useMeQuery({
     // only load query in browser (because cookie only works in browser and so we dont waste a request which we dont need)
@@ -35,8 +33,18 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
     // user is logged in
   } else {
     body = (
-      <>
-        <a className="mx-2 text-white">{data.me.username}</a>
+      <div className="flex">
+        <div>
+          <NextLink href="/create-post">
+            <button
+              type="submit"
+              className="hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md"
+            >
+              Create Post
+            </button>
+          </NextLink>
+        </div>
+        <a className="m-auto mx-4 text-white">{data.me.username}</a>
         <button
           onClick={async () => {
             await logout();
@@ -47,14 +55,17 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
         >
           Logout
         </button>
-      </>
+      </div>
     );
   }
 
   return (
     <nav className="bg-gray-800">
-      <div className="flex items-center h-16">
-        <div className="ml-auto mr-2">{body}</div>
+      <div className="md:w-4/5 lg:w-4/6 flex justify-between p-4 m-auto">
+        <NextLink href="/">
+          <a className="hover:underline ml-4 text-3xl font-bold text-yellow-600">Seddit</a>
+        </NextLink>
+        <div>{body}</div>
       </div>
     </nav>
   );
