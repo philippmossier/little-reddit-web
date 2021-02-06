@@ -12,18 +12,25 @@ const Index: FC = (): ReactElement => {
     limit: 15,
     cursor: null as string | null,
   });
-  const [{ data, fetching }] = usePostsQuery({ variables });
+  const [{ data, error, fetching }] = usePostsQuery({ variables });
   // TODO: fetching is always false, urql does not tell us when data is fetching with ur current cache setup on createUrqlClient.ts
+
+  if (!fetching && !data) {
+    return (
+      <>
+        <h1>You got no posts for some reason</h1>
+        <div>{error?.message}</div>
+      </>
+    );
+  }
 
   return (
     <Layout>
-      <div className="px-4">
-        {!fetching && !data && <h1>You got no posts for some reason</h1>}
-
-        {!data && fetching ? (
-          <div>loading ...</div>
-        ) : (
-          data!.posts.posts.map((p) =>
+      {!data && fetching ? (
+        <div>Loading...</div>
+      ) : (
+        <div className="px-4">
+          {data!.posts.posts.map((p) =>
             !p ? null : (
               <div
                 className="md:w-4/5 lg:w-4/6 flex items-center p-4 m-auto mt-8 border-2 border-solid shadow-md"
@@ -40,9 +47,10 @@ const Index: FC = (): ReactElement => {
                 <EditDeletePostButtons id={p.id} creatorId={p.creator.id} />
               </div>
             ),
-          )
-        )}
-      </div>
+          )}
+        </div>
+      )}
+
       {data && data.posts.hasMore ? (
         <div className="flex">
           {fetching ? (
