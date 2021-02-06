@@ -14,6 +14,7 @@ const Index: FC = (): ReactElement => {
   });
   const [{ data, fetching }] = usePostsQuery({ variables });
   // TODO: fetching is always false, urql does not tell us when data is fetching with ur current cache setup on createUrqlClient.ts
+
   return (
     <Layout>
       <div className="px-4">
