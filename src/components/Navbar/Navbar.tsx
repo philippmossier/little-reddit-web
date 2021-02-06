@@ -63,7 +63,7 @@ const NavBar: React.FC<React.ReactNode> = () => {
     <nav className="bg-gray-800">
       <div className="md:w-4/5 lg:w-4/6 flex justify-between p-4 m-auto">
         <NextLink href="/">
-          <a className="hover:underline ml-4 text-3xl font-bold text-yellow-600">Seddit</a>
+          <a className="hover:underline ml-4 text-3xl font-bold text-yellow-600">Readit</a>
         </NextLink>
         <div>{body}</div>
       </div>

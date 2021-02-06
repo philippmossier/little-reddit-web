@@ -5,6 +5,7 @@ import { usePostsQuery } from '../generated/graphql';
 import createUrqlClient from '../utils/createUrqlClient';
 import NextLink from 'next/link';
 import UpvoteSection from '../components/UpvoteSection';
+import EditDeletePostButtons from '../components/EditDeletePostButtons';
 
 const Index: FC = (): ReactElement => {
   const [variables, setVariables] = useState({
@@ -21,19 +22,24 @@ const Index: FC = (): ReactElement => {
         {!data && fetching ? (
           <div>loading ...</div>
         ) : (
-          data!.posts.posts.map((p) => (
-            <div className="md:w-4/5 lg:w-4/6 flex p-4 m-auto mt-8 border-2 border-solid shadow-md" key={p.id}>
-              <UpvoteSection post={p} />
-              <div>
-                <div></div>
-                <NextLink href="/post/[id]" as={`/post/${p.id}`}>
-                  <h3 className="hover:underline text-2xl font-bold cursor-pointer">{p.title}</h3>
-                </NextLink>
-                <span>Posted by: {p.creator.username}</span>
-                <div className="mt-4">{p.textSnippet}</div>
+          data!.posts.posts.map((p) =>
+            !p ? null : (
+              <div
+                className="md:w-4/5 lg:w-4/6 flex items-center p-4 m-auto mt-8 border-2 border-solid shadow-md"
+                key={p.id}
+              >
+                <UpvoteSection post={p} />
+                <div className="flex-1">
+                  <NextLink href="/post/[id]" as={`/post/${p.id}`}>
+                    <h3 className="hover:underline text-2xl font-bold cursor-pointer">{p.title}</h3>
+                  </NextLink>
+                  <span>Posted by: {p.creator.username}</span>
+                  <div className="mt-4">{p.textSnippet}</div>
+                </div>
+                <EditDeletePostButtons id={p.id} creatorId={p.creator.id} />
               </div>
-            </div>
-          ))
+            ),
+          )
         )}
       </div>
       {data && data.posts.hasMore ? (
