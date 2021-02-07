@@ -1,4 +1,4 @@
-import { cacheExchange, Resolver } from '@urql/exchange-graphcache';
+import { cacheExchange, Resolver, Cache } from '@urql/exchange-graphcache';
 import { dedupExchange, fetchExchange, Exchange, stringifyVariables } from 'urql';
 import {
   DeletePostMutationVariables,
@@ -64,6 +64,13 @@ export const cursorPagination = (): Resolver => {
     };
   };
 };
+const invalidateAllPosts = (cache: Cache) => {
+  const allFields = cache.inspectFields('Query');
+  const fieldInfos = allFields.filter((info) => info.fieldName === 'posts');
+  fieldInfos.forEach((fi) => {
+    cache.invalidate('Query', 'posts', fi.arguments || {});
+  });
+};
 
 const createUrqlClient = (ssrExchange: any, ctx: any) => {
   let cookie = '';
@@ -72,8 +79,9 @@ const createUrqlClient = (ssrExchange: any, ctx: any) => {
     // console.log('ctx', ctx.req.headers.cookie);
     cookie = ctx?.req?.headers?.cookie;
   }
+  console.log('api url: ', process.env.NEXT_PUBLIC_API_URL);
   return {
-    url: 'http://localhost:4000/graphql',
+    url: process.env.NEXT_PUBLIC_API_URL as string,
     fetchOptions: {
       credentials: 'include' as const,
       headers: cookie
@@ -129,11 +137,7 @@ const createUrqlClient = (ssrExchange: any, ctx: any) => {
               // Invalidate the cache and a specific query when a new post is created,
               // so posts get refetched and the newest posts are always on the top.
               // To invalidate a query we have to invalidate all the arguments on the specific query
-              const allFields = cache.inspectFields('Query');
-              const fieldInfos = allFields.filter((info) => info.fieldName === 'posts');
-              fieldInfos.forEach((fi) => {
-                cache.invalidate('Query', 'posts', fi.arguments || {});
-              });
+              invalidateAllPosts(cache);
             },
 
             login: (_result, args, cache, info) => {
@@ -146,6 +150,7 @@ const createUrqlClient = (ssrExchange: any, ctx: any) => {
                   };
                 }
               });
+              invalidateAllPosts(cache);
             },
             register: (_result, args, cache, info) => {
               betterUpdateQuery<RegisterMutation, MeQuery>(cache, { query: MeDocument }, _result, (result, query) => {
