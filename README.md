@@ -1,3 +1,24 @@
+# Little reddit clone
+
+Main Goals for the project:
+
+- Using my favorite tools altogether
+- Fast loadtime and advanced pagination
+- Synced types with my backend schema (mutations,queries, formMutations ..)
+- Using react-hooks for everything
+- Fast and enyoable component styling with tailwincss
+
+## Stack i used: 
+
+- React
+- Nextjs
+- Typescript
+- tailwindcss
+- Apollo/URQL
+- GraphQL
+- React Hook Forms
+- graphql-codegen to sync types with my backend schema
+
 ## Workflow 💻
 
 ### Backend: 
