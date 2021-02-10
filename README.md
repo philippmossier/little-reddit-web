@@ -1,6 +1,6 @@
 # Little reddit clone
 
-Main Goals for the project:
+### Main Goals for the project:
 
 - Using my favorite tools altogether
 - Fast loadtime and advanced pagination
@@ -8,7 +8,7 @@ Main Goals for the project:
 - Using react-hooks for everything
 - Fast and enyoable component styling with tailwincss
 
-## Stack i used: 
+### Stack i used: 
 
 - React
 - Nextjs
@@ -56,6 +56,10 @@ run `npm run gen` to autogenerate types from the backend schema.
 This generates types from the schema defined on our server (all entities, resolvers)
 On Top of that we can add our own types to the schema in the graphQL folder on the client (fragments, mutations, querys, urql-mutation-hooks)
 Urql mutation hooks are based on our schema types and so we dont need to write our own hooks to update our component state.
+
+---
+
+# TLDR Sidenotes: 
 
 ### Graphql Vscode Extension
 To get intellisense depending on your graphql schema 
