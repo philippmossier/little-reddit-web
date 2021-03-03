@@ -54,7 +54,6 @@ export const cursorPagination = (): Resolver => {
       if (!_hasMore) {
         hasMore = _hasMore as boolean;
       }
-      // console.log('data', hasMore, data);
       results.push(...data);
     });
     return {
@@ -101,10 +100,10 @@ const createUrqlClient = (ssrExchange: any, ctx: any) => {
         },
         updates: {
           Mutation: {
-            deletePost: (_result, args, cache, info) => {
+            deletePost: (_result, args, cache, _info) => {
               cache.invalidate({ __typename: 'Post', id: (args as DeletePostMutationVariables).id });
             },
-            vote: (_result, args, cache, info) => {
+            vote: (_result, args, cache, _info) => {
               const { postId, value } = args as VoteMutationVariables;
               const data = cache.readFragment(
                 gql`
@@ -133,14 +132,14 @@ const createUrqlClient = (ssrExchange: any, ctx: any) => {
                 );
               }
             },
-            createPost: (_result, args, cache, info) => {
+            createPost: (_result, _args, cache, _info) => {
               // Invalidate the cache and a specific query when a new post is created,
               // so posts get refetched and the newest posts are always on the top.
               // To invalidate a query we have to invalidate all the arguments on the specific query
               invalidateAllPosts(cache);
             },
 
-            login: (_result, args, cache, info) => {
+            login: (_result, _args, cache, _info) => {
               betterUpdateQuery<LoginMutation, MeQuery>(cache, { query: MeDocument }, _result, (result, query) => {
                 if (result.login.errors) {
                   return query;
@@ -152,7 +151,7 @@ const createUrqlClient = (ssrExchange: any, ctx: any) => {
               });
               invalidateAllPosts(cache);
             },
-            register: (_result, args, cache, info) => {
+            register: (_result, _args, cache, _info) => {
               betterUpdateQuery<RegisterMutation, MeQuery>(cache, { query: MeDocument }, _result, (result, query) => {
                 if (result.register.errors) {
                   return query;
@@ -163,7 +162,7 @@ const createUrqlClient = (ssrExchange: any, ctx: any) => {
                 }
               });
             },
-            logout: (_result, args, cache, info) => {
+            logout: (_result, _args, cache, _info) => {
               betterUpdateQuery<LogoutMutation, MeQuery>(cache, { query: MeDocument }, _result, () => ({
                 me: null,
               }));

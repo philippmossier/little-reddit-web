@@ -3,22 +3,13 @@ import NextLink from 'next/link';
 import { useLogoutMutation, useMeQuery } from '../../generated/graphql';
 import { useRouter } from 'next/router';
 
-const NavBar: React.FC<React.ReactNode> = () => {
+const NavBar: React.FC = () => {
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
-  const [{ data, fetching }] = useMeQuery({
-    // only load query in browser (because cookie only works in browser and so we dont waste a request which we dont need)
-    // Note: This gives browser Warning: Did not expect server HTML to contain...
-    // pause: isServer(),
-    // i use request policy 'cache-and-network' (default is cache-first) for this particular case because if we pause the server we get the same result
-    // but we get a console warning that client and server is out of sync (because cookie only works in browser)
-    // requestPolicy: 'cache-and-network', // use this line if neccessary
-  });
+  const [{ data, fetching }] = useMeQuery({});
   const router = useRouter();
   let body;
-  // data is loading
   if (fetching) {
     body = null;
-    // user not logged in
   } else if (!data?.me) {
     body = (
       <>
@@ -30,7 +21,6 @@ const NavBar: React.FC<React.ReactNode> = () => {
         </NextLink>
       </>
     );
-    // user is logged in
   } else {
     body = (
       <div className="flex">

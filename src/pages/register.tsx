@@ -1,7 +1,6 @@
-import { NextPage } from 'next';
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/dist/client/router';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRegisterMutation } from '../generated/graphql';
 import * as styles from '../page-styles/styles';
@@ -14,8 +13,8 @@ type FormValues = {
   password: string;
 };
 
-const Register: NextPage = (): ReactElement => {
-  const [, registerMut] = useRegisterMutation(); // mutation hook from '@graphql-codegen/typescript-urql'
+const Register: React.FC = () => {
+  const [, registerMut] = useRegisterMutation();
   const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();
   const { isSubmitting } = formState;
   const router = useRouter();
@@ -61,12 +60,7 @@ const Register: NextPage = (): ReactElement => {
               Username
             </label>
             <div className={styles.inputContainer}>
-              {/* <input name="username" ref={register({ required: false })} className={styles.usernameInputField} /> */}
-              <input
-                name="username"
-                ref={register({ required: false })}
-                className="focus:shadow-outline focus:border-blue-300 focus:outline-none sm:text-sm sm:leading-5 block w-full px-3 py-2 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md appearance-none"
-              />
+              <input name="username" ref={register({ required: false })} className={styles.inputField} />
               {errors.username && <div className="text-sm font-bold text-red-500">{errors.username.message}</div>}
             </div>
           </div>

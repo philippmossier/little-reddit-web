@@ -1,5 +1,5 @@
 import { withUrqlClient } from 'next-urql';
-import React, { ReactElement, FC, useState } from 'react';
+import React, { useState } from 'react';
 import { Layout } from '../components/Layout/Layout';
 import { usePostsQuery } from '../generated/graphql';
 import createUrqlClient from '../utils/createUrqlClient';
@@ -7,13 +7,12 @@ import NextLink from 'next/link';
 import UpvoteSection from '../components/UpvoteSection';
 import EditDeletePostButtons from '../components/EditDeletePostButtons';
 
-const Index: FC = (): ReactElement => {
+const Index: React.FC = () => {
   const [variables, setVariables] = useState({
     limit: 15,
     cursor: null as string | null,
   });
   const [{ data, error, fetching }] = usePostsQuery({ variables });
-  // TODO: fetching is always false, urql does not tell us when data is fetching with ur current cache setup on createUrqlClient.ts
 
   if (!fetching && !data) {
     return (

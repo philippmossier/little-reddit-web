@@ -15,15 +15,13 @@ const ForgotPasswordPage: React.FC = (): ReactElement => {
   const [, forgotPasswordMut] = useForgotPasswordMutation();
   const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();
   const { isSubmitting } = formState;
+
   const onSubmit = async (data: FormValues) => {
     const response = await forgotPasswordMut(data);
     if (response.data?.forgotPassword) {
       setComplete(true);
       console.log('Email sent sucessfull:', response.data);
-    }
-    // if no connection
-    else if (!response) console.log('Promise unresolved, check connection');
-    // error handling:
+    } else if (!response) console.log('Promise unresolved, check connection');
     else if (response.error) {
       setError('email', { message: 'sending email failed, pls check spelling' });
     }

@@ -2,7 +2,6 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import React, { ReactElement } from 'react';
 import '../styles/index.css';
-// import 'tailwindcss/tailwind.css';
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   return (

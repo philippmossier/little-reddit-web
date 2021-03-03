@@ -8,9 +8,6 @@ import { useRouter } from 'next/router';
 import { Layout } from '../components/Layout/Layout';
 import { useIsAuth } from '../utils/useIsAuth';
 
-// TODO:  make navbar layout wrapper sticky when scrolling
-//        check if create-post needs form error handling
-
 const CreatePost: React.FC = () => {
   const [, createPostMut] = useCreatePostMutation();
   const { register, handleSubmit, formState } = useForm<PostInput>();

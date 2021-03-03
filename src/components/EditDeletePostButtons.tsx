@@ -9,7 +9,6 @@ interface EditDeletePostButtonsProps {
 }
 
 const EditDeletePostButtons: React.FC<EditDeletePostButtonsProps> = ({ id, creatorId, className }) => {
-  // we can use the meQuery in multiple places and it only runs once because urql caches it
   const [{ data: meData }] = useMeQuery();
 
   const [, deletePost] = useDeletePostMutation();

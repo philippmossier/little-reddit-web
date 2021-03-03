@@ -1,7 +1,7 @@
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/dist/client/router';
 import NextLink from 'next/link';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoginMutation } from '../generated/graphql';
 import * as styles from '../page-styles/styles';
@@ -13,7 +13,7 @@ type FormValues = {
   password: string;
 };
 
-const Login: React.FC = (): ReactElement => {
+const Login: React.FC = () => {
   const [, loginMut] = useLoginMutation(); // mutation hook from '@graphql-codegen/typescript-urql'
   const { register, handleSubmit, formState, setError, errors } = useForm<FormValues>();
   const { isSubmitting } = formState;
@@ -25,7 +25,7 @@ const Login: React.FC = (): ReactElement => {
     if (response.data?.login.user) {
       console.log('Logged in succesfully as:', response.data.login.user);
       if (typeof router.query.next === 'string') {
-        // if a next route exist after user logs in go there
+        // if a next route exist after user logs in, go there
         router.push(router.query.next);
       } else {
         router.push('/');
@@ -33,7 +33,7 @@ const Login: React.FC = (): ReactElement => {
     }
     // if no connection:
     else if (!response) console.log('Promise unresolved, check connection');
-    // error handling:
+    // general error handling:
     else if (response.error) console.log('Error occured in onSubmit:', response.error);
     else if (response.data?.login.errors) {
       console.log(toErrorMap(response.data.login.errors));
